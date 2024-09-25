@@ -3,30 +3,32 @@ public class Scoreboard{
     public Scoreboard(String t1, String t2){
         team1 = t1;
         team2 = t2;
+        activeTeam = team1;
     }
 
     private String team1;
     private String team2;
 
-    private boolean teamOneReady = true;
-    private int team1Score = 0;
-    private int team2Score = 0;
+    private String activeTeam;
+    private int team1Score;
+    private int team2Score;
 
     public void recordPlay(int pointsScored){
-        if ((teamOneReady == true) && (pointsScored != 0)){
+        if ((activeTeam.equals(team1)) && (pointsScored != 0)){
             team1Score = team1Score + pointsScored;
         }
-        else if ((teamOneReady != true) && (pointsScored != 0)){
+        else if ((activeTeam.equals(team2)) && (pointsScored != 0)){
             team2Score = team2Score + pointsScored;
         }
-        else if (pointsScored == 0){
-            teamOneReady = !teamOneReady;
+        else if ((activeTeam.equals(team2)) && (pointsScored == 0)){
+            activeTeam = team1;
+        }
+        else if ((activeTeam.equals(team1)) && (pointsScored == 0)){
+            activeTeam = team2;
         }
     }
 
     public String getScore(){
-        if (if teamOneReady == true){
-            return (team1Score + "-" + team2Score + "-" + team1);
-        }
+        return team1Score + "-" + team2Score + "-" + activeTeam;
     }
 }
